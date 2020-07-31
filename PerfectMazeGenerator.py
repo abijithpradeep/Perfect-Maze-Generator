@@ -21,9 +21,9 @@ class Maze:
         self.set_id = 0
         self.cur_row = list()
         self.set_track = dict() # To keep track of the cells with same set id
-        self.block_pixel = 5 # Pixels per cell
-        self.maze_array = np.full(((self.row_count * self.block_pixel), 
-									(self.col_count * self.block_pixel) + 1, 3),
+        self.block_pixel = 6 # Pixels per cell
+        self.maze_array = np.full(((self.row_count * self.block_pixel) ,
+                                	(self.col_count * self.block_pixel) + 1, 3),
 									255, dtype=np.uint8)
                                 
 
@@ -137,7 +137,8 @@ class Maze:
 
     
     def draw(self):
-		#Draw the maze according to the self.current_row. Each cell has 5 pixels. 1 pixel denoting the wall on each side.
+		# Draw the maze according to the self.current_row. 
+        # Each cell has "self.block_pixel" pixels. 1 pixel denoting the wall on each side.
         for cell in self.cur_row:
         	if cell.right_wall:
         		for row in range(self.block_pixel):
@@ -152,6 +153,11 @@ class Maze:
     
 
     def generate_maze_image(self):
+        # Drawing boundaries
+        for col in range(self.col_count * self.block_pixel):
+            self.maze_array[0][col] = [0, 0, 0]
+        for row in range(self.row_count * self.block_pixel):
+            self.maze_array[row][0] = [0, 0, 0]
         img = Image.fromarray(self.maze_array, 'RGB')
         img.save('Maze.png')
         self.display_maze_image(img)
