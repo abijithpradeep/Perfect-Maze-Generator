@@ -1,7 +1,7 @@
 import random
-import argparse
 import numpy as np
 from PIL import Image
+import argparse
 
 
 class Cell:
@@ -22,8 +22,8 @@ class Maze:
         self.cur_row = list()
         self.set_track = dict() # To keep track of the cells with same set id
         self.block_pixel = 5 # Pixels per cell
-        self.maze_array = np.full(((self.row_count * self.block_pixel) + (self.row_count - 1), 
-									(self.col_count * self.block_pixel) + (self.col_count - 1), 3),
+        self.maze_array = np.full(((self.row_count * self.block_pixel), 
+									(self.col_count * self.block_pixel) + 1, 3),
 									255, dtype=np.uint8)
                                 
 
@@ -141,10 +141,14 @@ class Maze:
         for cell in self.cur_row:
         	if cell.right_wall:
         		for row in range(self.block_pixel):
-        			self.maze_array[(cell.row_index * self.block_pixel) + row][(cell.col_index * self.block_pixel) + self.block_pixel] = [0, 0, 0] #Blackpixels
+        			self.maze_array[(cell.row_index * self.block_pixel) +
+                                     row][(cell.col_index * self.block_pixel) +
+                                         self.block_pixel] = [0, 0, 0] #Blackpixels
         	if cell.bottom_wall:
         		for col in range(self.block_pixel):
-        			self.maze_array[(cell.row_index * self.block_pixel) + self.block_pixel - 1][(cell.col_index * self.block_pixel) + col] = [0, 0, 0] #Blackpixels
+        			self.maze_array[(cell.row_index * self.block_pixel) + 
+                                        self.block_pixel - 1][(cell.col_index * self.block_pixel) +
+                                             col] = [0, 0, 0] #Blackpixels
     
 
     def generate_maze_image(self):
