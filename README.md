@@ -5,7 +5,7 @@ And there won't be any path loops or isolated walls.
 
 PerfectMazeGenerator generates a random perfect maze each time it is executed. 
 
-<img src="Maze.png" width="440" height="500"/> 
+<img src="Maze.png" width="220" height="250"/> 
 
 ## Requirements
 
