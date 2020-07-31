@@ -1,4 +1,5 @@
 import random
+import argparse
 
 
 class Cell:
@@ -138,9 +139,32 @@ class Maze:
             self.display_cur_row(row_index)
 
 
+
+#Parsing the argument passed while executinig the program file to get the maze dimension
+def argument_parser():
+    parser = argparse.ArgumentParser(description = "Perfect Maze Generator")
+    parser.add_argument('--width',
+                        metavar = 'maze width',
+                        type = int,
+                        help = 'Width of the maze (Number of columns)',
+                        required = True
+                        )
+    parser.add_argument('--height',
+                        metavar = 'maze height',
+                        type = int,
+                        help = 'Height of the maze (Number of rows)',
+                        required = True
+                        )
+    args = parser.parse_args()
+    width = args.width
+    height = args.height
+    return (width, height)
          
+
+
 if __name__ == "__main__":
-    Maze(10, 10).generate()
-        
+    maze_width, maze_height = argument_parser()
+    Maze(maze_height, maze_width).generate()
+    
 
     
